@@ -4,7 +4,6 @@
 -- -----------------------------------------------------
 CREATE DATABASE TallerMecanicoMotos;
 GO
-	
 USE TallerMecanicoMotos;
 GO
 
@@ -142,3 +141,4 @@ CREATE TABLE Reparacion (
         ON UPDATE NO ACTION
 );
 GO
+
