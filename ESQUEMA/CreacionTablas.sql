@@ -85,13 +85,13 @@ GO
 -- FK que define la propiedad: Apunta SÓLO a la tabla Cliente, no a Usuario.
 CREATE TABLE Motos (
     id_Moto INT PRIMARY KEY IDENTITY(1,1),
-    id_Cliente_Propietario INT NOT NULL, 
+    id_Usuario INT NOT NULL, 
     Marca VARCHAR(255) NOT NULL,
     Modelo VARCHAR(255) NOT NULL,
     Patente VARCHAR(20) NOT NULL UNIQUE,
 	-- NO ACTION: No se puede borrar un Cliente si tiene motos registradas.
     CONSTRAINT fk_Motos_Cliente
-        FOREIGN KEY (id_Cliente_Propietario)
+        FOREIGN KEY (id_Usuario)
         REFERENCES Cliente (id_Usuario)
         ON DELETE NO ACTION
         ON UPDATE NO ACTION

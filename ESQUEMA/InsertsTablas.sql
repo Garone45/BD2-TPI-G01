@@ -22,7 +22,7 @@ INSERT INTO Usuario (id_TipoUsuario, Nombre, Apellido, Dni, Telefono, Email)
 VALUES (1, 'Lucas', 'Pérez', '40400403', '1155553456', 'lucas.perez@taller.com');
 
 -- ------------------------------
--- 2. CLIENTES (id_TipoUsuario = 2)
+-- 2. CLIENTES (id_TipoUsuario = 2)  aaaaa
 -- ------------------------------
 INSERT INTO Usuario (id_TipoUsuario, Nombre, Apellido, Dni, Telefono, Email) 
 VALUES (2, 'Sofía', 'Fernández', '30300304', '1155554567', 'sofia.fernandez@cliente.com');
@@ -61,7 +61,7 @@ values (3,'Pintura',18000)
 INSERT INTO Cliente (id_Usuario, Direccion, Fecha_Alta)
 values (4, 'Lavalle 1856', '5-7-2022')
 
-INSERT INTO Cliente (id_Usuario, Direccion, Fecha_Alta)
+INSERT INTO Cliente (,Direccion, Fecha_Alta)
 values (5,'Mendoza 1243', '4-3-2023')
 
 INSERT INTO Cliente (id_Usuario, Direccion, Fecha_Alta)
@@ -83,13 +83,27 @@ GO
 
 -- AQUI IRIA LA TABLA DE MOTOS Y SERVICIOS.
 
+-- INSERT DE MOTOS 
+INSERT INTO Motos (id_Usuario, Marca, Modelo, Patente)
+VALUES
+(4, 'Yamaha', 'FZ25', 'AA123BB'),
+(5, 'Honda', 'CG150', 'AC456CD'),
+(6, 'Bajaj', 'Dominar 400', 'AE789EF'),
+(7, 'Motomel', 'Sirius 200', 'AG321GH'),
+(8, 'Corven', 'Energy 110', 'AH654IJ'),
+(9, 'Kawasaki', 'Z400', 'AJ321KL'),
+(10, 'Suzuki', 'GN125', 'AK987MN');
 
 
+-- INSERT DE SERVICIO
 
-
-
-
-
+INSERT INTO Servicio (Descripcion)
+VALUES 
+('Mantenimiento general'),
+('Cambio de aceite'),
+('Reparación de motor'),
+('Ajuste de frenos'),
+('Revisión eléctrica');
 
 
 
