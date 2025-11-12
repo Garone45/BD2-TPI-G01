@@ -59,25 +59,25 @@ values (3,'Pintura',18000)
 -- INSERT PARA LA TABLA CLIENTES
 
 INSERT INTO Cliente (id_Usuario, Direccion, Fecha_Alta)
-values (4, 'Lavalle 1856', '5-7-2022')
+values (4, 'Lavalle 1856', '5-7-2022');
 
-INSERT INTO Cliente (,Direccion, Fecha_Alta)
-values (5,'Mendoza 1243', '4-3-2023')
-
-INSERT INTO Cliente (id_Usuario, Direccion, Fecha_Alta)
-values (6,'Cordero 1150','2-6-2023')
+INSERT INTO Cliente (Direccion, Fecha_Alta)
+values (5,'Mendoza 1243', '4-3-2023');
 
 INSERT INTO Cliente (id_Usuario, Direccion, Fecha_Alta)
-values (7,'San Gines 510','3-4-2021')
+values (6,'Cordero 1150','2-6-2023');
 
 INSERT INTO Cliente (id_Usuario, Direccion, Fecha_Alta)
-values (8,'Maximino Perez 2354','7-8-2022')
+values (7,'San Gines 510','3-4-2021');
 
 INSERT INTO Cliente (id_Usuario, Direccion, Fecha_Alta)
-values (9,'Belgrano 662','6-6-2024')
+values (8,'Maximino Perez 2354','7-8-2022');
 
 INSERT INTO Cliente (id_Usuario, Direccion, Fecha_Alta)
-values (10,'Maipu 1046','2-5-2025')
+values (9,'Belgrano 662','6-6-2024');
+
+INSERT INTO Cliente (id_Usuario, Direccion, Fecha_Alta)
+values (10,'Maipu 1046','2-5-2025');
 
 GO
 
