@@ -106,8 +106,7 @@ CREATE TABLE Reparacion (
     id_Reparacion INT PRIMARY KEY IDENTITY(1,1),
     -- Claves Foráneas (TODAS NOT NULL: Una reparación DEBE estar vinculada a estos elementos)
     id_Moto INT NOT NULL,              
-    id_Mecanico INT NOT NULL,          
-    id_Servicio INT NOT NULL,          
+    id_Mecanico INT NOT NULL,                    
     id_Estado INT NOT NULL,            
     
     fecha_Ingreso DATE NOT NULL,
@@ -127,16 +126,40 @@ CREATE TABLE Reparacion (
         REFERENCES Mecanico (id_Usuario)
         ON DELETE NO ACTION
         ON UPDATE NO ACTION,
-        
-    CONSTRAINT fk_Reparacion_Servicio
+      
+    CONSTRAINT fk_Reparacion_Estado
+        FOREIGN KEY (id_Estado)
+        REFERENCES Estado (id_Estado)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+);
+GO
+
+CREATE TABLE DetalleServicio (
+    id_Detalle INT PRIMARY KEY IDENTITY(1,1),
+    id_Reparacion INT NOT NULL,
+    id_Servicio INT NOT NULL,
+    id_Mecanico INT NOT NULL, -- El mecánico que realizó este servicio específico 
+    CostoXServicio FLOAT,     -- El costo de este servicio puntual 
+
+    -- FK a la Reparacion
+    CONSTRAINT fk_DetalleServicio_Reparacion
+        FOREIGN KEY (id_Reparacion)
+        REFERENCES Reparacion (id_Reparacion)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+
+    -- FK al Servicio
+    CONSTRAINT fk_DetalleServicio_Servicio
         FOREIGN KEY (id_Servicio)
         REFERENCES Servicio (id_Servicio)
         ON DELETE NO ACTION
         ON UPDATE NO ACTION,
 
-    CONSTRAINT fk_Reparacion_Estado
-        FOREIGN KEY (id_Estado)
-        REFERENCES Estado (id_Estado)
+    -- FK al Mecanico que hizo el trabajo
+    CONSTRAINT fk_DetalleServicio_Mecanico
+        FOREIGN KEY (id_Mecanico)
+        REFERENCES Mecanico (id_Usuario)
         ON DELETE NO ACTION
         ON UPDATE NO ACTION
 );
