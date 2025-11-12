@@ -135,6 +135,7 @@ CREATE TABLE Reparacion (
 );
 GO
 
+<<<<<<< HEAD
 CREATE TABLE DetalleServicio (
     id_Detalle INT PRIMARY KEY IDENTITY(1,1),
     id_Reparacion INT NOT NULL,
@@ -150,13 +151,50 @@ CREATE TABLE DetalleServicio (
         ON UPDATE NO ACTION,
 
     -- FK al Servicio
+=======
+-- -----------------------------------------------------
+-- 7. SUGERENCIA DE LA TABLA INTERMEDIA
+-- -----------------------------------------------------
+
+
+USE TallerMecanicoMotos;
+GO
+
+CREATE TABLE DetalleServicio (
+    -- Claves Primarias Compuestas (Identificador del detalle)
+    id_Reparacion INT NOT NULL,
+    id_Servicio INT NOT NULL,
+
+    -- Clave de Trazabilidad (Quién hizo este trabajo)
+    id_Mecanico INT NOT NULL,
+    
+    -- Atributos de Detalle
+    Costo_Acordado DECIMAL(10, 2) NOT NULL, -- Usamos DECIMAL para precisión monetaria
+    Fecha_Realizacion DATE,
+
+    -- Definición de la Clave Primaria COMPUESTA
+    CONSTRAINT pk_DetalleServicio PRIMARY KEY (id_Reparacion, id_Servicio),
+    
+    -- Restricción FK 1: a Reparacion
+    CONSTRAINT fk_DetalleServicio_Reparacion
+        FOREIGN KEY (id_Reparacion)
+        REFERENCES Reparacion (id_Reparacion)
+        ON DELETE CASCADE -- Si se borra la Reparación, se borran sus detalles.
+        ON UPDATE NO ACTION,
+
+    -- Restricción FK 2: a Servicio
+>>>>>>> a779fffedf437d21ab172aeba10b1d8802871646
     CONSTRAINT fk_DetalleServicio_Servicio
         FOREIGN KEY (id_Servicio)
         REFERENCES Servicio (id_Servicio)
         ON DELETE NO ACTION
         ON UPDATE NO ACTION,
 
+<<<<<<< HEAD
     -- FK al Mecanico que hizo el trabajo
+=======
+    -- Restricción FK 3: a Mecanico (Trazabilidad)
+>>>>>>> a779fffedf437d21ab172aeba10b1d8802871646
     CONSTRAINT fk_DetalleServicio_Mecanico
         FOREIGN KEY (id_Mecanico)
         REFERENCES Mecanico (id_Usuario)
@@ -164,4 +202,7 @@ CREATE TABLE DetalleServicio (
         ON UPDATE NO ACTION
 );
 GO
+<<<<<<< HEAD
 
+=======
+>>>>>>> a779fffedf437d21ab172aeba10b1d8802871646
