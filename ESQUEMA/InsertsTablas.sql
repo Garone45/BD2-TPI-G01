@@ -61,7 +61,7 @@ values (3,'Pintura',18000)
 INSERT INTO Cliente (id_Usuario, Direccion, Fecha_Alta)
 values (4, 'Lavalle 1856', '5-7-2022');
 
-INSERT INTO Cliente (Direccion, Fecha_Alta)
+INSERT INTO Cliente (id_Usuario,Direccion, Fecha_Alta)
 values (5,'Mendoza 1243', '4-3-2023');
 
 INSERT INTO Cliente (id_Usuario, Direccion, Fecha_Alta)
@@ -94,6 +94,34 @@ VALUES
 (9, 'Kawasaki', 'Z400', 'AJ321KL'),
 (10, 'Suzuki', 'GN125', 'AK987MN');
 
+GO
+-- INSERT DE SERVICIO
+INSERT INTO Servicio (Descripcion)
+VALUES 
+('Mantenimiento general'),
+('Cambio de aceite'),
+('Reparación de motor'),
+('Ajuste de frenos'),
+('Revisión eléctrica');
+
+
+
+
+-- -----------------------------------------------------
+--  INSERCIÓN DE LA TABLA ESTADO
+-- -----------------------------------------------------
+
+SET IDENTITY_INSERT Estado ON; -- Permite insertar IDs explícitos si es necesario.
+
+INSERT INTO Estado (id_Estado, Descripcion) VALUES
+(1, 'Ingreso y Diagnóstico'),
+(2, 'Esperando Presupuesto'),
+(3, 'En Reparación'),
+(4, 'Control de Calidad'),
+(5, 'Listo para Retirar'),
+(6, 'Entregado');
+
+SET IDENTITY_INSERT Estado OFF;
 GO
 
 -- 1. Declaramos TODAS las variables al inicio del lote
@@ -227,73 +255,5 @@ GO
 
 
 
--- INSERT DE SERVICIO
-
-INSERT INTO Servicio (Descripcion)
-VALUES 
-('Mantenimiento general'),
-('Cambio de aceite'),
-('Reparación de motor'),
-('Ajuste de frenos'),
-('Revisión eléctrica');
 
 
-
-
--- -----------------------------------------------------
---  INSERCIÓN DE LA TABLA ESTADO
--- -----------------------------------------------------
-
-SET IDENTITY_INSERT Estado ON; -- Permite insertar IDs explícitos si es necesario.
-
-INSERT INTO Estado (id_Estado, Descripcion) VALUES
-(1, 'Ingreso y Diagnóstico'),
-(2, 'Esperando Presupuesto'),
-(3, 'En Reparación'),
-(4, 'Control de Calidad'),
-(5, 'Listo para Retirar'),
-(6, 'Entregado');
-
-SET IDENTITY_INSERT Estado OFF;
-GO
-
--- -----------------------------------------------------
---  INSERCIÓN DE HECHOS (REPARACION)
--- -----------------------------------------------------
---Utilizamos los datos insertados ya previos.
-
--- Reparación 1: Mantenimiento General (Moto: AA123BC, Cliente: Sofía, Mecánico: Martín)
-
--- Reparación 2: Reparación de Motor (Moto: DD456EE, Cliente: Diego, Mecánico: Javier)
-INSERT INTO Reparacion (id_Moto, id_Mecanico, id_Servicio, id_Estado, fecha_Ingreso, fecha_Salida, costo_Total)
-VALUES
-(
-    -- id_Moto de la patente 'DD456EE' (Moto 2)
-    (SELECT id_Moto FROM Motos WHERE Patente = 'DD456EE'), 
-    -- id_Mecanico de 'Javier Rodríguez' (ID 2)
-    (SELECT id_Usuario FROM Usuario WHERE Dni = '40400402'), 
-    -- Servicio: Reparación de Motor (Asumimos ID 2)
-    (SELECT id_Servicio FROM Servicio WHERE Descripcion = 'Reparación de Motor'), 
-    -- Estado: Entregado (ID 6)
-    (SELECT id_Estado FROM Estado WHERE Descripcion = 'Entregado'), 
-    '2025-09-01',
-    '2025-09-15',
-    35000.75 -- Reparación finalizada y facturada
-);
-
--- Reparación 3: Sistema Eléctrico (Moto: FF789GG, Cliente: Valeria, Mecánico: Lucas)
-INSERT INTO Reparacion (id_Moto, id_Mecanico, id_Servicio, id_Estado, fecha_Ingreso, Descripcion)
-VALUES
-(
-    -- id_Moto de la patente 'FF789GG' (Moto 3)
-    (SELECT id_Moto FROM Motos WHERE Patente = 'FF789GG'), 
-    -- id_Mecanico de 'Lucas Pérez' (ID 3)
-    (SELECT id_Usuario FROM Usuario WHERE Dni = '40400403'), 
-    -- Servicio: Sistema Eléctrico (Asumimos ID 3)
-    (SELECT id_Servicio FROM Servicio WHERE Descripcion = 'Sistema Eléctrico'), 
-    -- Estado: Esperando Presupuesto (ID 2)
-    (SELECT id_Estado FROM Estado WHERE Descripcion = 'Esperando Presupuesto'), 
-    '2025-10-30',
-    'Falla intermitente en luces de giro.'
-);
-GO
