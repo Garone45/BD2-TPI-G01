@@ -95,3 +95,31 @@ GROUP BY
     U.Nombre,
     U.Apellido,
     Mec.Especialidad;
+
+-- -----------------------------------------------------------------
+-- Vista 5: VW_DIAS_EN_TALLER
+-- -----------------------------------------------------------------
+-- Propósito: Vista de reporte cuantos dias lleva una moto en el taller.
+-- -----------------------------------------------------------------
+CREATE VIEW V_DIAS_EN_TALLER_POR_MOTO AS
+SELECT
+    R.Id_Reparacion,
+    M.Patente AS Patente_Moto,
+    M.Marca AS Marca_Moto,
+    -- Datos del Cliente para identificr la moto
+    UC.Nombre AS Nombre_Cliente,
+    UC.Apellido AS Apellido_Cliente,
+    R.fecha_Ingreso,
+    E.Descripcion AS Estado_Actual,
+    -- Columna calculada: Días en Taller (Elemento esencial)
+    DATEDIFF(day, R.fecha_Ingreso, ISNULL(R.fecha_Salida, GETDATE())) AS Dias_en_Taller
+FROM
+    Reparacion AS R
+INNER JOIN
+    Motos AS M ON R.Id_Moto = M.Id_Moto
+-- JOIN para obtener los datos del USUARIO (Cliente) que es dueño de la Moto
+INNER JOIN
+    Usuario AS UC ON M.id_Usuario = UC.Id_Usuario 
+-- JOIN a la tabla de catálogo Estado
+INNER JOIN
+    Estado AS E ON R.Id_estado = E.Id_Estado;
