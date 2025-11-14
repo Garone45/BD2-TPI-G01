@@ -128,6 +128,11 @@ GO
 DECLARE @idReparacionCreada_1 INT;
 DECLARE @idReparacionCreada_2 INT;
 DECLARE @idReparacionCreada_3 INT;
+DECLARE @idReparacionCreada_4 INT;
+DECLARE @idReparacionCreada_5 INT;
+DECLARE @idReparacionCreada_6 INT;
+DECLARE @idReparacionCreada_7 INT;
+
 
 -- -----------------------------------------------------
 -- Reparación 1: Mantenimiento General (Moto: AA123BB)
@@ -241,6 +246,145 @@ VALUES
     (SELECT id_Usuario FROM Usuario WHERE Dni = '40400403'), -- Lucas Pérez
     NULL -- Aún no hay costo
 );
+
+-- -----------------------------------------------------
+-- Reparación 4: Cambio de Aceite (Moto: AG321GH)
+-- -----------------------------------------------------
+
+-- 4.1. Insertamos la cabecera
+INSERT INTO Reparacion (
+    id_Moto, 
+    id_Mecanico, 
+    id_Estado, 
+    fecha_Ingreso, 
+    Descripcion
+)
+VALUES
+(   
+    (SELECT id_Moto FROM Motos WHERE Patente = 'AG321GH'), -- Patente real de Andrés
+    (SELECT id_Usuario FROM Usuario WHERE Dni = '40400403'), -- Lucas Pérez
+    (SELECT id_Estado FROM Estado WHERE Descripcion = 'Control de Calidad'), -- ID 4
+    '2025-11-1',
+    'Cambio de Aceite por kilometraje'
+);
+
+-- 4.2. Capturamos el ID
+SET @idReparacionCreada_4 = SCOPE_IDENTITY();
+
+-- 4.3. Insertamos el detalle
+INSERT INTO DetalleServicio (id_Reparacion, id_Servicio, id_Mecanico, CostoXServicio)
+VALUES
+(
+    @idReparacionCreada_4,
+    (SELECT id_Servicio FROM Servicio WHERE Descripcion = 'Cambio de aceite'),
+    (SELECT id_Usuario FROM Usuario WHERE Dni = '40400403'), -- Lucas Pérez
+    10000.00
+);
+
+-- -----------------------------------------------------
+-- Reparación 5: Revisión eléctrica (Moto: AH654IJ)
+-- -----------------------------------------------------
+
+-- 5.1. Insertamos la cabecera
+INSERT INTO Reparacion (
+    id_Moto, 
+    id_Mecanico, 
+    id_Estado, 
+    fecha_Ingreso, 
+    Descripcion
+)
+VALUES
+(   
+    (SELECT id_Moto FROM Motos WHERE Patente = 'AH654IJ'), -- Patente real de Marina
+    (SELECT id_Usuario FROM Usuario WHERE Dni = '40400402'), -- Javier Rodríguez
+    (SELECT id_Estado FROM Estado WHERE Descripcion = 'Esperando Presupuesto'), -- ID 2
+    '2025-11-5',
+    'Falla en CPU'
+);
+
+-- 5.2. Capturamos el ID
+SET @idReparacionCreada_5 = SCOPE_IDENTITY();
+
+-- 5.3. Insertamos el detalle
+INSERT INTO DetalleServicio (id_Reparacion, id_Servicio, id_Mecanico, CostoXServicio)
+VALUES
+(
+    @idReparacionCreada_5,
+    (SELECT id_Servicio FROM Servicio WHERE Descripcion = 'Revisión eléctrica'),
+    (SELECT id_Usuario FROM Usuario WHERE Dni = '40400402'), -- Javier Rodríguez
+    16000.00
+);
+
+-- -----------------------------------------------------
+-- Reparación 6: Cambio de Aceite (Moto: AJ321KL)
+-- -----------------------------------------------------
+
+-- 6.1. Insertamos la cabecera
+INSERT INTO Reparacion (
+    id_Moto, 
+    id_Mecanico, 
+    id_Estado, 
+    fecha_Ingreso, 
+    Descripcion
+)
+VALUES
+(   
+    (SELECT id_Moto FROM Motos WHERE Patente = 'AJ321KL'), -- Patente real de Facundo
+    (SELECT id_Usuario FROM Usuario WHERE Dni = '40400401'), -- Martín Gómez
+    (SELECT id_Estado FROM Estado WHERE Descripcion = 'Listo para Retirar'), -- ID 5
+    '2025-10-1',
+    'Mantenimiento y Acondicionamiento General por abandono'
+);
+
+-- 6.2. Capturamos el ID
+SET @idReparacionCreada_6 = SCOPE_IDENTITY();
+
+-- 6.3. Insertamos el detalle
+INSERT INTO DetalleServicio (id_Reparacion, id_Servicio, id_Mecanico, CostoXServicio)
+VALUES
+(
+    @idReparacionCreada_6,
+    (SELECT id_Servicio FROM Servicio WHERE Descripcion = 'Mantenimiento general'),
+    (SELECT id_Usuario FROM Usuario WHERE Dni = '40400401'), -- Martín Gómez
+    23000.00
+);
+
+-- -----------------------------------------------------
+-- Reparación 7: Cambio de Aceite (Moto: AK987MN)
+-- -----------------------------------------------------
+
+-- 7.1. Insertamos la cabecera
+INSERT INTO Reparacion (
+    id_Moto, 
+    id_Mecanico, 
+    id_Estado, 
+    fecha_Ingreso, 
+    Descripcion
+)
+VALUES
+(   
+    (SELECT id_Moto FROM Motos WHERE Patente = 'AK987MN'), -- Patente real de Emilia
+    (SELECT id_Usuario FROM Usuario WHERE Dni = '40400402'), -- Javier	Rodríguez
+    (SELECT id_Estado FROM Estado WHERE Descripcion = 'Ingreso y Diagnóstico'), -- ID 1
+    '2025-11-13',
+    'Ajuste de frenos por aire en el circuito'
+);
+
+-- 7.2. Capturamos el ID
+SET @idReparacionCreada_7 = SCOPE_IDENTITY();
+
+-- 7.3. Insertamos el detalle
+INSERT INTO DetalleServicio (id_Reparacion, id_Servicio, id_Mecanico, CostoXServicio)
+VALUES
+(
+    @idReparacionCreada_7,
+    (SELECT id_Servicio FROM Servicio WHERE Descripcion = 'Ajuste de frenos'),
+    (SELECT id_Usuario FROM Usuario WHERE Dni = '40400402'), -- Javier	Rodríguez
+    NULL -- Aún no hay costo
+);
+
+
+
 
 -- -----------------------------------------------------
 -- 4. FIN DEL LOTE
