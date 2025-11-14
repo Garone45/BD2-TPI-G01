@@ -84,6 +84,19 @@ BEGIN
 END
 GO
 
+CREATE PROCEDURE SP_ActualizarCostoXServicio
+    @idDetalle INT,
+    @NuevoCosto DECIMAL(10,2)
+AS
+BEGIN
+    UPDATE DetalleServicio
+    SET CostoXServicio = @NuevoCosto
+    WHERE id_Detalle = @idDetalle;
+
+    PRINT 'Costo del Detalle ' + @idDetalle + ' actualizado a ' + @NuevoCosto + '.';
+END
+GO
+
 EXEC SP_RegistrarOrdenCompleta 
     @Patente = 'AC456CD',
     @MecanicoPrincipalDni = '40400401', -- Martín Gómez
