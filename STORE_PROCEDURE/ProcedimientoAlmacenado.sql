@@ -61,16 +61,16 @@ BEGIN
     BEGIN TRANSACTION;
 
     BEGIN TRY
-        -- A. Insertar la Cabecera de la Reparación
-        INSERT INTO Reparacion (id_Moto, id_Mecanico, id_Estado, Descripcion)
-        VALUES (@idMoto, @idMecanicoPrincipal, @idEstadoIngreso, @DescripcionOrden);
-
+        -- A. Insertar la Cabecera de la Reparación (¡CORRECCIÓN AQUÍ!)
+        INSERT INTO Reparacion (id_Moto, id_Mecanico, id_Estado, Descripcion, fecha_Ingreso) -- Se agrega fecha_Ingreso
+        VALUES (@idMoto, @idMecanicoPrincipal, @idEstadoIngreso, @DescripcionOrden, GETDATE()); -- Se usa GETDATE()
+        
         -- B. Capturar el ID de Reparacion recién creado
         SET @idReparacionCreada = SCOPE_IDENTITY();
 
-        -- C. Insertar el Detalle del Primer Servicio (M:N)
+        -- C. Insertar el Detalle del Primer Servicio (M:N) (Corregido el error de VALUES)
         INSERT INTO DetalleServicio (id_Reparacion, id_Servicio, id_Mecanico, CostoXServicio)
-        VALUES (@idReparacionCreada, @idServicio, @idMecanicoDetalle, @CostoServicio, NULL);
+        VALUES (@idReparacionCreada, @idServicio, @idMecanicoDetalle, @CostoServicio);
 
         -- Si ambos inserts fueron exitosos
         COMMIT TRANSACTION;
