@@ -53,22 +53,17 @@ BEGIN
         RAISERROR('Error: Patente, Mecánico o Servicio no encontrado. Operación cancelada.', 16, 1);
         RETURN;
     END
-
     -- 3. INICIO DE LA TRANSACCIÓN 
     BEGIN TRANSACTION;
-
     BEGIN TRY
         -- A. Insertar la Cabecera de la Reparación 
         INSERT INTO Reparacion (id_Moto, id_Mecanico, id_Estado, Descripcion, fecha_Ingreso) -- Se agrega fecha_Ingreso
         VALUES (@idMoto, @idMecanicoPrincipal, @idEstadoIngreso, @DescripcionOrden, GETDATE()); -- Se usa GETDATE()
-        
         -- B. Capturar el ID de Reparacion recién creado
         SET @idReparacionCreada = SCOPE_IDENTITY();
-
         -- C. Insertar el Detalle del Primer Servicio (M:N) 
         INSERT INTO DetalleServicio (id_Reparacion, id_Servicio, id_Mecanico, CostoXServicio)
         VALUES (@idReparacionCreada, @idServicio,@idMecanicoPrincipal, @CostoServicio);
-
         -- Si ambos inserts fueron exitosos
         COMMIT TRANSACTION;
         PRINT 'Orden de reparación y detalle registrados con éxito. ID de Reparación: ' + CAST(@idReparacionCreada AS VARCHAR);
