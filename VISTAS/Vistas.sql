@@ -101,6 +101,7 @@ GROUP BY
 -- -----------------------------------------------------------------
 -- Propósito: Vista de reporte cuantos dias lleva una moto en el taller.
 -- -----------------------------------------------------------------
+GO
 CREATE VIEW V_DIAS_EN_TALLER_POR_MOTO AS
 SELECT
     R.Id_Reparacion,

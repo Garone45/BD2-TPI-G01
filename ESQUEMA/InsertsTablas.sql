@@ -22,7 +22,7 @@ INSERT INTO Usuario (id_TipoUsuario, Nombre, Apellido, Dni, Telefono, Email)
 VALUES (1, 'Lucas', 'Pérez', '40400403', '1155553456', 'lucas.perez@taller.com');
 
 -- ------------------------------
--- 2. CLIENTES (id_TipoUsuario = 2)  aaaaa
+-- 2. CLIENTES (id_TipoUsuario = 2)  
 -- ------------------------------
 INSERT INTO Usuario (id_TipoUsuario, Nombre, Apellido, Dni, Telefono, Email) 
 VALUES (2, 'Sofía', 'Fernández', '30300304', '1155554567', 'sofia.fernandez@cliente.com');

@@ -48,4 +48,3 @@ BEGIN
         RETURN;
     END
 END
-GO
