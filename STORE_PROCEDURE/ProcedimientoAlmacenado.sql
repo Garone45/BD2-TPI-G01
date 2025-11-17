@@ -76,7 +76,7 @@ BEGIN
     BEGIN CATCH
         -- Si algo falla, revertimos
         ROLLBACK TRANSACTION;
-        THROW; -- Mantiene el mensaje de error original
+        THROW; -- Mantiene el mensaje67juhde error original
     END CATCH
 END
 GO
