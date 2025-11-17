@@ -31,8 +31,7 @@ CREATE PROCEDURE SP_RegistrarOrdenCompleta
     
     -- Parámetros del Detalle (Primer Servicio)
     @ServicioDesc VARCHAR(255),
-    @CostoServicio DECIMAL(10, 2),
-    @MecanicoDetalleDni VARCHAR(20) -- DNI del Mecánico que ejecuta el primer servicio
+    @CostoServicio DECIMAL(10, 2)
 AS
 BEGIN
     -- Declarar variables para guardar los IDs FK
@@ -40,18 +39,16 @@ BEGIN
     DECLARE @idMecanicoPrincipal INT;
     DECLARE @idEstadoIngreso INT;
     DECLARE @idServicio INT;
-    DECLARE @idMecanicoDetalle INT;
     DECLARE @idReparacionCreada INT;
 
     -- 1. Obtener los IDs necesarios (Verificación de existencia)
     SET @idMoto = (SELECT id_Moto FROM Motos WHERE Patente = @Patente);
     SET @idMecanicoPrincipal = (SELECT id_Usuario FROM Usuario WHERE Dni = @MecanicoPrincipalDni);
     SET @idServicio = (SELECT id_Servicio FROM Servicio WHERE Descripcion = @ServicioDesc);
-    SET @idMecanicoDetalle = (SELECT id_Usuario FROM Usuario WHERE Dni = @MecanicoDetalleDni);
     SET @idEstadoIngreso = (SELECT id_Estado FROM Estado WHERE Descripcion = 'Ingreso y Diagnóstico');
 
     -- 2. Validación de FKs (Si falla, el SP se detiene)
-    IF @idMoto IS NULL OR @idMecanicoPrincipal IS NULL OR @idServicio IS NULL OR @idMecanicoDetalle IS NULL
+    IF @idMoto IS NULL OR @idMecanicoPrincipal IS NULL OR @idServicio IS NULL
     BEGIN
         RAISERROR('Error: Patente, Mecánico o Servicio no encontrado. Operación cancelada.', 16, 1);
         RETURN;
@@ -70,7 +67,7 @@ BEGIN
 
         -- C. Insertar el Detalle del Primer Servicio (M:N) 
         INSERT INTO DetalleServicio (id_Reparacion, id_Servicio, id_Mecanico, CostoXServicio)
-        VALUES (@idReparacionCreada, @idServicio, @idMecanicoDetalle, @CostoServicio);
+        VALUES (@idReparacionCreada, @idServicio,@idMecanicoPrincipal, @CostoServicio);
 
         -- Si ambos inserts fueron exitosos
         COMMIT TRANSACTION;
@@ -105,3 +102,13 @@ EXEC SP_RegistrarOrdenCompleta
     @CostoServicio = 12000.00,
     @MecanicoDetalleDni = '40400401';
 
+
+EXEC sp_helptext 'SP_RegistrarOrdenCompleta';
+
+
+SELECT ROUTINE_SCHEMA, ROUTINE_NAME
+FROM INFORMATION_SCHEMA.ROUTINES
+WHERE ROUTINE_NAME = 'SP_RegistrarOrdenCompleta';
+
+
+EXEC sp_recompile 'SP_RegistrarOrdenCompleta';
