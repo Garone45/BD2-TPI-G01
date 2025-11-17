@@ -90,25 +90,11 @@ BEGIN
     SET CostoXServicio = @NuevoCosto
     WHERE id_Detalle = @idDetalle;
 
-    PRINT 'Costo del Detalle ' + @idDetalle + ' actualizado a ' + @NuevoCosto + '.';
+    PRINT 'Costo del Detalle ' 
+        + CAST(@idDetalle AS VARCHAR(10)) 
+        + ' actualizado a ' 
+        + CAST(@NuevoCosto AS VARCHAR(20)) 
+        + '.';
 END
 GO
 
-EXEC SP_RegistrarOrdenCompleta 
-    @Patente = 'AC456CD',
-    @MecanicoPrincipalDni = '40400401', -- Martín Gómez
-    @DescripcionOrden = 'Revisión por ruido en embrague.',
-    @ServicioDesc = 'Mantenimiento general',
-    @CostoServicio = 12000.00,
-    @MecanicoDetalleDni = '40400401';
-
-
-EXEC sp_helptext 'SP_RegistrarOrdenCompleta';
-
-
-SELECT ROUTINE_SCHEMA, ROUTINE_NAME
-FROM INFORMATION_SCHEMA.ROUTINES
-WHERE ROUTINE_NAME = 'SP_RegistrarOrdenCompleta';
-
-
-EXEC sp_recompile 'SP_RegistrarOrdenCompleta';
