@@ -70,7 +70,7 @@ SELECT
     DS.CostoxServicio AS Costo_del_Servicio
 FROM DetalleServicio DS
 JOIN Servicio S ON DS.id_Servicio = S.id_Servicio
-JOIN Mecanico Mec ON DS.id_Mecanico = Mec.id_Usuario
+JOIN Mecanico Mec ON DS.id_Mecanico = Mec.id_Usuario 
 JOIN Usuario U ON Mec.id_Usuario = U.id_Usuario;
 
 -- -----------------------------------------------------------------
@@ -124,3 +124,4 @@ INNER JOIN
 -- JOIN a la tabla de catálogo Estado
 INNER JOIN
     Estado AS E ON R.Id_estado = E.Id_Estado;
+
